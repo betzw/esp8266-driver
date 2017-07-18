@@ -12,16 +12,16 @@ using namespace utest::v1;
 #define MBED_CFG_TCP_CLIENT_ECHO_BUFFER_SIZE 256
 #endif
 
-#ifndef MBED_CFG_ESP8266_TX
-#define MBED_CFG_ESP8266_TX D1
+#ifndef MBED_CFG_SPWF01SA_TX
+#define MBED_CFG_SPWF01SA_TX D8
 #endif
 
-#ifndef MBED_CFG_ESP8266_RX
-#define MBED_CFG_ESP8266_RX D0
+#ifndef MBED_CFG_SPWF01SA_RX
+#define MBED_CFG_SPWF01SA_RX D2
 #endif
 
-#ifndef MBED_CFG_ESP8266_DEBUG
-#define MBED_CFG_ESP8266_DEBUG false
+#ifndef MBED_CFG_SPWF01SA_DEBUG
+#define MBED_CFG_SPWF01SA_DEBUG false
 #endif
 
 #define STRINGIZE(x) STRINGIZE2(x)
@@ -40,8 +40,8 @@ void prep_buffer(char *tx_buffer, size_t tx_size) {
 }
 
 void test_tcp_echo() {
-    SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
-    int err = net.connect(STRINGIZE(MBED_CFG_ESP8266_SSID), STRINGIZE(MBED_CFG_ESP8266_PASS));
+    SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
+    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
 
     if (err) {
         printf("MBED: failed to connect with an error of %d\r\n", err);

@@ -16,16 +16,16 @@ using namespace utest::v1;
 #define MBED_CFG_UDP_CLIENT_ECHO_TIMEOUT 500
 #endif
 
-#ifndef MBED_CFG_ESP8266_TX
-#define MBED_CFG_ESP8266_TX D1
+#ifndef MBED_CFG_SPWF01SA_TX
+#define MBED_CFG_SPWF01SA_TX D8
 #endif
 
-#ifndef MBED_CFG_ESP8266_RX
-#define MBED_CFG_ESP8266_RX D0
+#ifndef MBED_CFG_SPWF01SA_RX
+#define MBED_CFG_SPWF01SA_RX D2
 #endif
 
-#ifndef MBED_CFG_ESP8266_DEBUG
-#define MBED_CFG_ESP8266_DEBUG false
+#ifndef MBED_CFG_SPWF01SA_DEBUG
+#define MBED_CFG_SPWF01SA_DEBUG false
 #endif
 
 #define STRINGIZE(x) STRINGIZE2(x)
@@ -54,9 +54,9 @@ void prep_buffer(char *uuid, char *tx_buffer, size_t tx_size) {
 }
 
 void test_udp_echo() {
-    SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
+    SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
 
-    int err = net.connect(STRINGIZE(MBED_CFG_ESP8266_SSID), STRINGIZE(MBED_CFG_ESP8266_PASS));
+    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
     TEST_ASSERT_EQUAL(0, err);
 
     if (err) {

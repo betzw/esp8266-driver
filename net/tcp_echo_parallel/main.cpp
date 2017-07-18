@@ -20,23 +20,23 @@ using namespace utest::v1;
 #define MBED_CFG_TCP_CLIENT_ECHO_THREADS 3
 #endif
 
-#ifndef MBED_CFG_ESP8266_TX
-#define MBED_CFG_ESP8266_TX D1
+#ifndef MBED_CFG_SPWF01SA_TX
+#define MBED_CFG_SPWF01SA_TX D8
 #endif
 
-#ifndef MBED_CFG_ESP8266_RX
-#define MBED_CFG_ESP8266_RX D0
+#ifndef MBED_CFG_SPWF01SA_RX
+#define MBED_CFG_SPWF01SA_RX D2
 #endif
 
-#ifndef MBED_CFG_ESP8266_DEBUG
-#define MBED_CFG_ESP8266_DEBUG false
+#ifndef MBED_CFG_SPWF01SA_DEBUG
+#define MBED_CFG_SPWF01SA_DEBUG false
 #endif
 
 #define STRINGIZE(x) STRINGIZE2(x)
 #define STRINGIZE2(x) #x
 
 
-SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
+SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
 SocketAddress tcp_addr;
 Mutex iomutex;
 
@@ -103,7 +103,7 @@ Echo *echoers[MBED_CFG_TCP_CLIENT_ECHO_THREADS];
 
 
 void test_tcp_echo_parallel() {
-    int err = net.connect(STRINGIZE(MBED_CFG_ESP8266_SSID), STRINGIZE(MBED_CFG_ESP8266_PASS));
+    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
     TEST_ASSERT_EQUAL(0, err);
 
     printf("MBED: TCPClient IP address is '%s'\n", net.get_ip_address());

@@ -7,16 +7,16 @@
 
 using namespace utest::v1;
 
-#ifndef MBED_CFG_ESP8266_TX
-#define MBED_CFG_ESP8266_TX D1
+#ifndef MBED_CFG_SPWF01SA_TX
+#define MBED_CFG_SPWF01SA_TX D8
 #endif
 
-#ifndef MBED_CFG_ESP8266_RX
-#define MBED_CFG_ESP8266_RX D0
+#ifndef MBED_CFG_SPWF01SA_RX
+#define MBED_CFG_SPWF01SA_RX D2
 #endif
 
-#ifndef MBED_CFG_ESP8266_DEBUG
-#define MBED_CFG_ESP8266_DEBUG false
+#ifndef MBED_CFG_SPWF01SA_DEBUG
+#define MBED_CFG_SPWF01SA_DEBUG false
 #endif
 
 #define STRINGIZE(x) STRINGIZE2(x)
@@ -26,8 +26,8 @@ using namespace utest::v1;
 // Bringing the network up and down
 template <int COUNT>
 void test_bring_up_down() {
-    SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
-    net.set_credentials(STRINGIZE(MBED_CFG_ESP8266_SSID), STRINGIZE(MBED_CFG_ESP8266_PASS));
+    SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
+    net.set_credentials(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
 
     for (int i = 0; i < COUNT; i++) {
         int err = net.connect();

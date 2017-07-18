@@ -8,16 +8,16 @@
 
 using namespace utest::v1;
 
-#ifndef MBED_CFG_ESP8266_TX
-#define MBED_CFG_ESP8266_TX D1
+#ifndef MBED_CFG_SPWF01SA_TX
+#define MBED_CFG_SPWF01SA_TX D8
 #endif
 
-#ifndef MBED_CFG_ESP8266_RX
-#define MBED_CFG_ESP8266_RX D0
+#ifndef MBED_CFG_SPWF01SA_RX
+#define MBED_CFG_SPWF01SA_RX D2
 #endif
 
-#ifndef MBED_CFG_ESP8266_DEBUG
-#define MBED_CFG_ESP8266_DEBUG false
+#ifndef MBED_CFG_SPWF01SA_DEBUG
+#define MBED_CFG_SPWF01SA_DEBUG false
 #endif
 
 #define STRINGIZE(x) STRINGIZE2(x)
@@ -49,8 +49,8 @@ bool find_substring(const char *first, const char *last, const char *s_first, co
 
 void test_tcp_hello_world() {
     bool result = false;
-    SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
-    net.connect(STRINGIZE(MBED_CFG_ESP8266_SSID), STRINGIZE(MBED_CFG_ESP8266_PASS));
+    SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
+    net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
     printf("TCP client IP Address is %s\r\n", net.get_ip_address());
 
     TCPSocket sock(&net);
