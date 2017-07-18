@@ -3,7 +3,7 @@
 #endif
 
 #include "mbed.h"
-#include "ESP8266Interface.h"
+#include "SpwfSAInterface.h"
 #include "UDPSocket.h"
 #include "greentea-client/test_env.h"
 #include "unity/unity.h"
@@ -124,7 +124,7 @@ void generate_buffer(uint8_t **buffer, size_t *size, size_t min, size_t max) {
 
 
 // Global variables shared between pressure tests
-ESP8266Interface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
+SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
 SocketAddress udp_addr;
 Timer timer;
 Mutex iomutex;

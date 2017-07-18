@@ -1,5 +1,5 @@
 #include "mbed.h"
-#include "ESP8266Interface.h"
+#include "SpwfSAInterface.h"
 #include "UDPSocket.h"
 #include "greentea-client/test_env.h"
 #include "unity/unity.h"
@@ -54,7 +54,7 @@ void prep_buffer(char *uuid, char *tx_buffer, size_t tx_size) {
 }
 
 void test_udp_echo() {
-    ESP8266Interface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
+    SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
 
     int err = net.connect(STRINGIZE(MBED_CFG_ESP8266_SSID), STRINGIZE(MBED_CFG_ESP8266_PASS));
     TEST_ASSERT_EQUAL(0, err);

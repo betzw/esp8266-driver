@@ -2,7 +2,7 @@
 #include "greentea-client/test_env.h"
 #include "unity.h"
 #include "utest.h"
-#include "ESP8266Interface.h"
+#include "SpwfSAInterface.h"
 
 using namespace utest::v1;
 
@@ -33,7 +33,7 @@ nsapi_version_t ip_pref;
 const char *ip_pref_repr;
 
 // Network setup
-ESP8266Interface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
+SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
 void net_bringup() {
     int err = net.connect(STRINGIZE(MBED_CFG_ESP8266_SSID), STRINGIZE(MBED_CFG_ESP8266_PASS));
     TEST_ASSERT_EQUAL(0, err);

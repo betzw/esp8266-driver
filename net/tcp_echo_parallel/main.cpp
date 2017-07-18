@@ -3,7 +3,7 @@
 #endif
 
 #include "mbed.h"
-#include "ESP8266Interface.h"
+#include "SpwfSAInterface.h"
 #include "TCPSocket.h"
 #include "greentea-client/test_env.h"
 #include "unity/unity.h"
@@ -36,7 +36,7 @@ using namespace utest::v1;
 #define STRINGIZE2(x) #x
 
 
-ESP8266Interface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
+SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
 SocketAddress tcp_addr;
 Mutex iomutex;
 

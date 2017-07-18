@@ -1,6 +1,6 @@
 #include <algorithm>
 #include "mbed.h"
-#include "ESP8266Interface.h"
+#include "SpwfSAInterface.h"
 #include "TCPSocket.h"
 #include "greentea-client/test_env.h"
 #include "unity/unity.h"
@@ -49,7 +49,7 @@ bool find_substring(const char *first, const char *last, const char *s_first, co
 
 void test_tcp_hello_world() {
     bool result = false;
-    ESP8266Interface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
+    SpwfSAInterface net(MBED_CFG_ESP8266_TX, MBED_CFG_ESP8266_RX, MBED_CFG_ESP8266_DEBUG);
     net.connect(STRINGIZE(MBED_CFG_ESP8266_SSID), STRINGIZE(MBED_CFG_ESP8266_PASS));
     printf("TCP client IP Address is %s\r\n", net.get_ip_address());
 
