@@ -45,7 +45,7 @@ const int udp_dtls_handshake_count = sizeof(udp_dtls_handshake_pattern) / sizeof
 
 void test_udp_dtls_handshake() {
     SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
-    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
+    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
     TEST_ASSERT_EQUAL(0, err);
 
     printf("MBED: UDPClient IP address is '%s'\n", net.get_ip_address());

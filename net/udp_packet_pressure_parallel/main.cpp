@@ -10,6 +10,7 @@
 #include "utest.h"
 
 using namespace utest::v1;
+using namespace rtos;
 
 
 #ifndef MBED_CFG_UDP_CLIENT_PACKET_PRESSURE_MIN
@@ -274,7 +275,7 @@ void test_udp_packet_pressure_parallel() {
             MBED_CFG_UDP_CLIENT_PACKET_PRESSURE_THREADS,
             buffer_subsize);
 
-    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
+    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
     TEST_ASSERT_EQUAL(0, err);
 
     printf("MBED: UDPClient IP address is '%s'\n", net.get_ip_address());

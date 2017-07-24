@@ -56,7 +56,7 @@ void prep_buffer(char *uuid, char *tx_buffer, size_t tx_size) {
 void test_udp_echo() {
     SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
 
-    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
+    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
     TEST_ASSERT_EQUAL(0, err);
 
     if (err) {

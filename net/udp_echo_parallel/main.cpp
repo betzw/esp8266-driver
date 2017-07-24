@@ -10,6 +10,7 @@
 #include "utest.h"
 
 using namespace utest::v1;
+using namespace rtos;
 
 
 #ifndef MBED_CFG_UDP_CLIENT_ECHO_BUFFER_SIZE
@@ -166,7 +167,7 @@ Echo *echoers[MBED_CFG_UDP_CLIENT_ECHO_THREADS];
 
 
 void test_udp_echo_parallel() {
-    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
+    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
     TEST_ASSERT_EQUAL(0, err);
 
     if (err) {
@@ -228,4 +229,3 @@ Specification specification(test_setup, cases);
 int main() {
     return !Harness::run(specification);
 }
-

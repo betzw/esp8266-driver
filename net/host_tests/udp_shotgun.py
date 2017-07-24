@@ -26,6 +26,7 @@ from threading import Thread
 from SocketServer import BaseRequestHandler, UDPServer
 from mbed_host_tests import BaseHostTest, event_callback
 
+import netifaces # betzw
 
 class UDPEchoClientHandler(BaseRequestHandler):
     def handle(self):
@@ -73,7 +74,8 @@ class UDPEchoClientTest(BaseHostTest):
             s.connect((target_ip, 0)) # Target IP, any port
         except socket.error:
             s.connect((target_ip, 8000)) # Target IP, 'random' port
-        ip = s.getsockname()[0]
+        # betzw - WAS: ip = s.getsockname()[0]
+        ip = netifaces.ifaddresses('wlan0')[2][0]['addr'].encode('ascii') # betzw
         s.close()
         return ip
 

@@ -10,6 +10,7 @@
 #include "utest.h"
 
 using namespace utest::v1;
+using namespace rtos;
 
 
 #ifndef MBED_CFG_TCP_CLIENT_PACKET_PRESSURE_MIN
@@ -249,7 +250,7 @@ void test_tcp_packet_pressure_parallel() {
             MBED_CFG_TCP_CLIENT_PACKET_PRESSURE_THREADS,
             buffer_subsize);
 
-    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS));
+    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
     TEST_ASSERT_EQUAL(0, err);
 
     printf("MBED: TCPClient IP address is '%s'\n", net.get_ip_address());
