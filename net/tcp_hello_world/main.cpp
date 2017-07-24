@@ -32,7 +32,7 @@ namespace {
 #if defined(TARGET_VK_RZ_A1H)
     const int RECV_BUFFER_SIZE = 300;
 #else
-    const int RECV_BUFFER_SIZE = 512;
+    const int RECV_BUFFER_SIZE = 600;
 #endif
     // Test related data
     const char *HTTP_OK_STR = "200 OK";
@@ -69,7 +69,10 @@ void test_tcp_hello_world() {
 
         // Server will respond with HTTP GET's success code
         const int ret = sock.recv(buffer, sizeof(buffer) - 1);
-        buffer[ret] = '\0';
+        if(ret >= 0)
+            buffer[ret] = '\0';
+        else
+            buffer[0] = '\0';
 
         // Find 200 OK HTTP status in reply
         bool found_200_ok = find_substring(buffer, buffer + ret, HTTP_OK_STR, HTTP_OK_STR + strlen(HTTP_OK_STR));
