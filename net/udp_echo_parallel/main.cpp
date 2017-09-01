@@ -42,7 +42,7 @@ using namespace rtos;
 
 
 const int ECHO_LOOPS = 16;
-SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
+SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
 SocketAddress udp_addr;
 Mutex iomutex;
 char uuid[48] = {0};

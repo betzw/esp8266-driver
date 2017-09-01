@@ -37,7 +37,7 @@ using namespace rtos;
 #define STRINGIZE2(x) #x
 
 
-SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
+SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
 SocketAddress tcp_addr;
 Mutex iomutex;
 

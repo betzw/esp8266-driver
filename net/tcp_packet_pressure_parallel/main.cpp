@@ -122,7 +122,7 @@ void generate_buffer(uint8_t **buffer, size_t *size, size_t min, size_t max) {
 
 
 // Global variables shared between pressure tests
-SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, MBED_CFG_SPWF01SA_DEBUG);
+SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
 SocketAddress tcp_addr;
 Timer timer;
 Mutex iomutex;
