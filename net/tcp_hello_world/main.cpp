@@ -49,11 +49,11 @@ bool find_substring(const char *first, const char *last, const char *s_first, co
 
 void test_tcp_hello_world() {
     bool result = false;
-    SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
-    net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
-    printf("TCP client IP Address is %s\r\n", net.get_ip_address());
+    SpwfSAInterface *net = new SpwfSAInterface(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
+    net->connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
+    printf("TCP client IP Address is %s\r\n", net->get_ip_address());
 
-    TCPSocket sock(&net);
+    TCPSocket sock(net);
     printf("HTTP: Connection to %s:%d\r\n", HTTP_SERVER_NAME, HTTP_SERVER_PORT);
     if (sock.connect(HTTP_SERVER_NAME, HTTP_SERVER_PORT) == 0) {
         printf("HTTP: OK\r\n");
@@ -99,7 +99,8 @@ void test_tcp_hello_world() {
         printf("HTTP: ERROR\r\n");
     }
 
-    net.disconnect();
+    net->disconnect();
+    delete net;
     TEST_ASSERT_EQUAL(true, result);
 }
 

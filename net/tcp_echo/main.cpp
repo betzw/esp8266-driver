@@ -40,18 +40,18 @@ void prep_buffer(char *tx_buffer, size_t tx_size) {
 }
 
 void test_tcp_echo() {
-    SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
-    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
+    SpwfSAInterface *net = new SpwfSAInterface(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
+    int err = net->connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
 
     if (err) {
         printf("MBED: failed to connect with an error of %d\r\n", err);
         TEST_ASSERT_EQUAL(0, err);
     }
 
-    printf("MBED: TCPClient IP address is '%s'\n", net.get_ip_address());
+    printf("MBED: TCPClient IP address is '%s'\n", net->get_ip_address());
     printf("MBED: TCPClient waiting for server IP and port...\n");
 
-    greentea_send_kv("target_ip", net.get_ip_address());
+    greentea_send_kv("target_ip", net->get_ip_address());
 
     bool result = false;
 
@@ -69,7 +69,7 @@ void test_tcp_echo() {
 
     printf("MBED: Server IP address received: %s:%d \n", ipbuf, port);
 
-    TCPSocket sock(&net);
+    TCPSocket sock(net);
     SocketAddress tcp_addr(ipbuf, port);
     if (sock.connect(tcp_addr) == 0) {
         printf("HTTP: Connected to %s:%d\r\n", ipbuf, port);
@@ -89,7 +89,8 @@ void test_tcp_echo() {
     }
 
     sock.close();
-    net.disconnect();
+    net->disconnect();
+    delete net;
     TEST_ASSERT_EQUAL(true, result);
 }
 

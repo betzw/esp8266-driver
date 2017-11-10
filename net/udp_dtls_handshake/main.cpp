@@ -44,14 +44,14 @@ int udp_dtls_handshake_pattern[] = {MBED_CFG_UDP_DTLS_HANDSHAKE_PATTERN};
 const int udp_dtls_handshake_count = sizeof(udp_dtls_handshake_pattern) / sizeof(int);
 
 void test_udp_dtls_handshake() {
-    SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
-    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
+    SpwfSAInterface *net = new SpwfSAInterface(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
+    int err = net->connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
     TEST_ASSERT_EQUAL(0, err);
 
-    printf("MBED: UDPClient IP address is '%s'\n", net.get_ip_address());
+    printf("MBED: UDPClient IP address is '%s'\n", net->get_ip_address());
     printf("MBED: UDPClient waiting for server IP and port...\n");
 
-    greentea_send_kv("target_ip", net.get_ip_address());
+    greentea_send_kv("target_ip", net->get_ip_address());
 
     bool result = false;
 
@@ -88,7 +88,7 @@ void test_udp_dtls_handshake() {
     sock.set_timeout(MBED_CFG_UDP_DTLS_HANDSHAKE_TIMEOUT);
 
     for (int attempt = 0; attempt < MBED_CFG_UDP_DTLS_HANDSHAKE_RETRIES; attempt++) {
-        err = sock.open(&net);
+        err = sock.open(net);
         TEST_ASSERT_EQUAL(0, err);
 
         for (int i = 0; i < udp_dtls_handshake_count; i++) {
@@ -136,7 +136,8 @@ void test_udp_dtls_handshake() {
         }
     }
 
-    net.disconnect();
+    net->disconnect();
+    delete net;
     TEST_ASSERT_EQUAL(true, result);
 }
 

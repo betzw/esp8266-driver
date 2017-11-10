@@ -26,35 +26,37 @@ using namespace utest::v1;
 // Bringing the network up and down
 template <int COUNT>
 void test_bring_up_down() {
-    SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
-    net.set_credentials(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
+    SpwfSAInterface *net = new SpwfSAInterface(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
+    net->set_credentials(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
 
     for (int i = 0; i < COUNT; i++) {
-        int err = net.connect();
+        int err = net->connect();
         TEST_ASSERT_EQUAL(0, err);
 
-        printf("MBED: IP Address %s\r\n", net.get_ip_address());
-        printf("MBED: Netmask %s\r\n", net.get_netmask());
-        printf("MBED: Gateway %s\r\n", net.get_gateway());
-        TEST_ASSERT(net.get_ip_address());
-        TEST_ASSERT(net.get_netmask());
-        TEST_ASSERT(net.get_gateway());
+        printf("MBED: IP Address %s\r\n", net->get_ip_address());
+        printf("MBED: Netmask %s\r\n", net->get_netmask());
+        printf("MBED: Gateway %s\r\n", net->get_gateway());
+        TEST_ASSERT(net->get_ip_address());
+        TEST_ASSERT(net->get_netmask());
+        TEST_ASSERT(net->get_gateway());
 
         UDPSocket udp;
-        err = udp.open(&net);
+        err = udp.open(net);
         TEST_ASSERT_EQUAL(0, err);
         err = udp.close();
         TEST_ASSERT_EQUAL(0, err);
 
         TCPSocket tcp;
-        err = tcp.open(&net);
+        err = tcp.open(net);
         TEST_ASSERT_EQUAL(0, err);
         err = tcp.close();
         TEST_ASSERT_EQUAL(0, err);
 
-        err = net.disconnect();
+        err = net->disconnect();
         TEST_ASSERT_EQUAL(0, err);
     }
+
+    delete net;
 }
 
 

@@ -54,9 +54,9 @@ void prep_buffer(char *uuid, char *tx_buffer, size_t tx_size) {
 }
 
 void test_udp_echo() {
-    SpwfSAInterface net(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
+    SpwfSAInterface *net = new SpwfSAInterface(MBED_CFG_SPWF01SA_TX, MBED_CFG_SPWF01SA_RX, NC, NC, MBED_CFG_SPWF01SA_DEBUG);
 
-    int err = net.connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
+    int err = net->connect(STRINGIZE(MBED_CFG_SPWF01SA_SSID), STRINGIZE(MBED_CFG_SPWF01SA_PASS), NSAPI_SECURITY_WPA2);
     TEST_ASSERT_EQUAL(0, err);
 
     if (err) {
@@ -64,9 +64,9 @@ void test_udp_echo() {
         TEST_ASSERT_EQUAL(0, err);
     }
 
-    printf("UDP client IP Address is %s\n", net.get_ip_address());
+    printf("UDP client IP Address is %s\n", net->get_ip_address());
 
-    greentea_send_kv("target_ip", net.get_ip_address());
+    greentea_send_kv("target_ip", net->get_ip_address());
 
     char recv_key[] = "host_port";
     char ipbuf[60] = {0};
@@ -74,7 +74,7 @@ void test_udp_echo() {
     unsigned int port = 0;
 
     UDPSocket sock;
-    sock.open(&net);
+    sock.open(net);
     sock.set_timeout(MBED_CFG_UDP_CLIENT_ECHO_TIMEOUT);
 
     greentea_send_kv("host_ip", " ");
@@ -128,7 +128,8 @@ void test_udp_echo() {
     }
 
     sock.close();
-    net.disconnect();
+    net->disconnect();
+    delete net;
     TEST_ASSERT_EQUAL(ECHO_LOOPS, success);
 }
 
